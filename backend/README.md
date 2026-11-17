@@ -13,6 +13,10 @@ o Documento de Requisitos (RF01–RF24, RN01–RN20, RNF01–RNF19) e as seçõe
 
 ---
 
+> **Usa Windows sem WSL?** Veja o passo a passo com PowerShell no [README da raiz](../README.md).
+> Os comandos abaixo são para Ubuntu/WSL; no PowerShell troque `source .venv/bin/activate` por
+> `.venv\Scripts\activate`, `cp` por `copy` e use `python -m alembic` / `python -m uvicorn`.
+
 ## Sumário
 1. [Passo a passo no Ubuntu (WSL)](#1-passo-a-passo-no-ubuntu-wsl)
 2. [Rodar os testes automatizados](#2-rodar-os-testes-automatizados)
@@ -53,15 +57,12 @@ python3 --version        # precisa ser 3.10 ou mais novo
 
 *(Sem Docker? Veja a seção 6, item "Usar PostgreSQL instalado no Ubuntu".)*
 
-### 1.2 Copiar o projeto para o Ubuntu
-
-Baixe o `confirma-ai.zip` no Windows e copie para a sua pasta no Linux
-(troque `SEU_USUARIO` pelo seu usuário do Windows):
+### 1.2 Clonar o repositório no Ubuntu
 
 ```bash
-cp /mnt/c/Users/SEU_USUARIO/Downloads/confirma-ai.zip ~/
+sudo apt install -y git
 cd ~
-unzip confirma-ai.zip
+git clone https://github.com/DONO/confirma-ai.git   # use o link do botão "Code" do GitHub
 cd confirma-ai
 ```
 
@@ -145,6 +146,12 @@ Para rodar **tudo no PostgreSQL**, inclusive os testes de concorrência (dupla m
 
 ```bash
 TEST_DATABASE_URL=postgresql+psycopg://confirma:confirma@localhost:5432/confirma_ai_test pytest -v
+```
+
+No PowerShell:
+
+```powershell
+$env:TEST_DATABASE_URL="postgresql+psycopg://confirma:confirma@localhost:5432/confirma_ai_test"; pytest -v
 ```
 
 Resultado esperado: `62 passed`. Verificação de estilo: `ruff check .`

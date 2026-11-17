@@ -7,3 +7,7 @@ __pycache__/
 backend/backups/
 node_modules/
 .next/
+*.egg-info/
+.env.local
+next-env.d.ts
+*.tsbuildinfo

@@ -6,7 +6,7 @@ import { useCadastros } from "@/hooks/useCadastros";
 import { useAuth } from "@/lib/auth";
 import { P } from "@/lib/permissoes";
 import { api, lerErro } from "@/lib/api";
-import { dataHora, opcoes } from "@/lib/formato";
+import { dataHora, opcoes, rotulo } from "@/lib/formato";
 import type { Oferta, Pagina, Vaga } from "@/lib/types";
 import { ExigePermissao } from "@/components/AppShell";
 import { Abas, Alerta, BarraFiltros, Botao, CabecalhoPagina, Caixa, Cartao, Entrada, Selecao } from "@/components/ui";
@@ -106,7 +106,7 @@ function PainelVagas({ onVerOfertas }: { onVerOfertas: (vagaId: number) => void 
             { titulo: "Especialidade", render: (v) => cad.nomeEspecialidade(v.especialidade_id) },
             { titulo: "Profissional", render: (v) => cad.nomeProfissional(v.profissional_id) },
             { titulo: "Unidade", render: (v) => cad.nomeUnidade(v.unidade_id) },
-            { titulo: "Motivo", render: (v) => <span className="text-xs">{v.motivo_liberacao}</span> },
+            { titulo: "Motivo", render: (v) => <span className="text-xs">{rotulo("statusAgendamento", v.motivo_liberacao)}</span> },
             { titulo: "Liberada em", render: (v) => dataHora(v.data_liberacao) },
             { titulo: "Status", render: (v) => <SeloVaga status={v.status} /> },
             {

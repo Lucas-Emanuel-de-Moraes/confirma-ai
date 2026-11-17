@@ -105,12 +105,12 @@ def validar_disponibilidade(
                            codigo="AGENDA_BLOQUEADA")
     if repo.ocupante_do_horario(db, prof.id, data_hora) is not None:
         raise Conflito(
-            "Horário já ocupado para este profissional. Cadastre o paciente na fila de espera "
-            "(POST /api/v1/fila-espera) para receber uma oferta de encaixe.",
+            "Horário já ocupado para este profissional. Se o paciente quiser esse horário, "
+            "coloque-o na fila de espera para receber uma oferta de encaixe.",
             codigo="HORARIO_OCUPADO",
         )
     if not ignorar_reserva and repo.vaga_em_oferta(db, prof.id, data_hora) is not None:
-        raise Conflito("Este horário está reservado temporariamente para uma oferta de encaixe (RN02).",
+        raise Conflito("Este horário está reservado temporariamente para uma oferta de encaixe.",
                        codigo="VAGA_RESERVADA")
 
 

@@ -112,7 +112,7 @@ def _motivo_para_encerrar(db: Session, vaga: VagaLiberada, cfg) -> str | None:
     if prof is None or not prof.ativo:
         return "Profissional indisponível"
     if cad_repo.bloqueio_vigente(db, vaga.unidade_id, vaga.profissional_id, vaga.data_hora):
-        return "Agenda bloqueada (RN14)"
+        return "Agenda bloqueada"
     if agenda_repo.ocupante_do_horario(db, vaga.profissional_id, vaga.data_hora):
         return "Horário ocupado por outro agendamento"
     return None

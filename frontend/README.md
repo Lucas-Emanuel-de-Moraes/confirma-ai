@@ -2,7 +2,7 @@
 
 Interface web do Confirma Aí, consumindo a API FastAPI do diretório `../backend`.
 
-**Stack:** Next.js 16 (App Router) · React 19 · TypeScript · Tailwind CSS 4 · Axios. Sem outras bibliotecas de UI, formulário ou estado.
+**Stack:** Next.js 16 (App Router) · React 19 · TypeScript · Tailwind CSS 4 · Axios · Vitest. Sem outras bibliotecas de UI, formulário ou estado. A troca em relação ao documento (React 18) está registrada em [`docs/DECISOES.md`](../docs/DECISOES.md).
 
 ## Como rodar
 
@@ -10,7 +10,7 @@ Pré-requisito: API no ar em `http://localhost:8000` (veja `../backend/README.md
 
 ```bash
 npm install
-cp .env.example .env.local   # NEXT_PUBLIC_API_URL=http://localhost:8000/api/v1
+cp .env.example .env.local   # no PowerShell: copy .env.example .env.local
 npm run dev                  # http://localhost:3000
 ```
 
@@ -20,7 +20,7 @@ O endereço do front precisa estar em `FRONTEND_URL` no `.env` do back-end (CORS
 Usuários de demonstração (criados por `python -m app.seed --demo`): `admin` / `Admin@123`;
 `recepcao`, `gestor`, `profissional` / `Senha@123`.
 
-Outros comandos: `npm run build` (build de produção), `npm run lint`.
+Outros comandos: `npm test` (testes com Vitest), `npm run lint`, `npx tsc --noEmit` (tipos) e `npm run build` (build de produção).
 
 ## Organização
 
