@@ -1,0 +1,39 @@
+# Uso:
+#   docker compose up -d db          -> só o PostgreSQL (rodar o back-end no venv)
+#   docker compose up --build        -> PostgreSQL + API em contêiner (http://localhost:8000/docs)
+services:
+  db:
+    image: postgres:16
+    container_name: confirma-ai-db
+    environment:
+      POSTGRES_USER: confirma
+      POSTGRES_PASSWORD: confirma
+      POSTGRES_DB: confirma_ai
+    ports:
+      - "5432:5432"   # se a porta 5432 estiver ocupada, troque para "5433:5432" e ajuste o DATABASE_URL
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./backend/scripts/criar_banco_teste.sql:/docker-entrypoint-initdb.d/10-banco-teste.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U confirma -d confirma_ai"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+
+  api:
+    build: ./backend
+    container_name: confirma-ai-api
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: postgresql+psycopg://confirma:confirma@db:5432/confirma_ai
+      SECRET_KEY: chave-de-desenvolvimento-do-docker-compose-0123456789
+      MENSAGERIA_PROVEDOR: simulador
+      AGENDADOR_ATIVO: "true"
+      FRONTEND_URL: http://localhost:3000
+    ports:
+      - "8000:8000"
+
+volumes:
+  pgdata:

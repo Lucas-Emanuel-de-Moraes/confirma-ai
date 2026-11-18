@@ -1,0 +1,26 @@
+@import "tailwindcss";
+
+@theme {
+  --color-marca-50: #effaf8;
+  --color-marca-100: #d7f2ed;
+  --color-marca-200: #b1e4db;
+  --color-marca-500: #14917f;
+  --color-marca-600: #0e7568;
+  --color-marca-700: #0d5e55;
+  --color-marca-900: #0b3a35;
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+}
+
+html {
+  color-scheme: light;
+}
+
+body {
+  @apply bg-slate-50 text-slate-900 antialiased;
+}
+
+/* Foco sempre visível para navegação por teclado (PB34 – acessibilidade) */
+:focus-visible {
+  @apply outline-2 outline-offset-2 outline-marca-500;
+}
